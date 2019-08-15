@@ -3,7 +3,6 @@
 這個 IoT Edge module 可以讀取你的視訊頭資料並將辨識結果回傳到iot hub。
 
 ## Optional parameters
-The following parameters are optional and can be specified via environment variables in the deployment manifest (See 'createOptions' above).
 
 |Environment variable  |Description  |
 |---------|---------|
