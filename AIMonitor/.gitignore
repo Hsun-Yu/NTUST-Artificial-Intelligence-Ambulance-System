@@ -328,8 +328,8 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
-.env
-.env
+# .env
+# .env
 config/deployment.json
 config/deployment.json
-.env
+# .env
