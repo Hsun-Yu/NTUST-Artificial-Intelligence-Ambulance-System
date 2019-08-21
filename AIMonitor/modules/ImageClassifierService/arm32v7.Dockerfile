@@ -23,8 +23,14 @@ RUN install_packages \
 COPY /build/arm32v7-requirements.txt ./
 RUN pip3 install --upgrade pip 
 RUN pip3 install --upgrade setuptools
-#RUN pip3 install --index-url=https://www.piwheels.org/simple -r arm32v7-requirements.txt
-RUN pip3 install --default-timeout=1000 --index-url=https://www.piwheels.org/simple -r arm32v7-requirements.txt --no-cache-dir
+RUN pip3 install --index-url=https://www.piwheels.org/simple -r arm32v7-requirements.txt
+#RUN pip3 install --default-timeout=1000 --index-url=https://www.piwheels.org/simple -r arm32v7-requirements.txt --no-cache-dir
+
+#install tensorflow==1.12.0
+RUN wget https://github.com/lhelontra/tensorflow-on-arm/releases/download/v1.12.0/tensorflow-1.12.0-cp35-none-linux_armv7l.whl
+RUN pip3 install tensorflow-1.12.0-cp35-none-linux_armv7l.whl
+RUN rm tensorflow-1.12.0-cp35-none-linux_armv7l.whl
+
 # Cleanup
 RUN rm -rf /var/lib/apt/lists/* \
     && apt-get -y autoremove
