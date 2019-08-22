@@ -13,8 +13,11 @@ import math
 # Create your views here.
 
 def home(request):
-	latitude = 25.0068
-	longitude = 121.5233
+	begin_latitude = 25.0068
+	begin_longitude = 121.5233
+	finish_latitude = 24.1234
+	finish_longitude = 120.4321
+
 	return render(request,"home.html",locals())
 
 def sign(request):
@@ -53,7 +56,14 @@ def schedule(request):
 
 	begin_latitude = 25.0068
 	begin_longitude = 121.5233
-	finish_latitude = 24.1234
-	finish_longitude = 120.4321
+	finish_latitude = 25.1234
+	finish_longitude = 121.4321
 
 	return render(request,"schedule.html",locals())
+
+def logout(request):
+
+
+	
+
+	return render(request,"index.html",locals())
