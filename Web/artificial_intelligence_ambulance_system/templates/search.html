@@ -52,7 +52,7 @@
             <th>地點</th><th>發生時間</th><th>嚴重性</th><th>負責單位</th>
             {% for TrafficConditionLog in car_accidents %}
                 <tr>
-                    <td>{{ TrafficConditionLog.Monitor.location }} </td>
+                    <td>{{ TrafficConditionLog.Monitor.Location }} </td>
                     <td>{{ TrafficConditionLog.Datetime }} </td>
                     <td>{{ TrafficConditionLog.TrafficCondition.Name}} </td>
                     <td>{{ TrafficConditionLog.ResponsibleUnit.Name }} </td>
