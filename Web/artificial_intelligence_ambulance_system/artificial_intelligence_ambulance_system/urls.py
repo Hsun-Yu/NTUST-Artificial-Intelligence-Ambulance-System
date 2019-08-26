@@ -24,7 +24,7 @@ urlpatterns = [
     path('sign/',sign),#登入頁面
     path('adminmain/',adminmain),#登入後的管理頁面
     path('index/',index),
-    path('schedule/',schedule),
+    path('schedule/(?P<id>)/$',schedule),
     path('logout/',logout),
     path('index/logout/',logout),
 ]

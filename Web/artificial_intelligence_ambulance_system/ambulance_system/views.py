@@ -42,11 +42,13 @@ def sign(request):
 
 def adminmain(request):
 	global user1
-	
+
+
 	user=user1
+
 	Unit=ResponsibleUnit.objects.filter(Name=user.username)
 	car_accidents = TrafficConditionLog.objects.filter(ResponsibleUnit__in=Unit)
-	
+
 
 
 	return render(request,"adminmain.html",locals())
@@ -77,7 +79,7 @@ def index(request):
 
 	return render(request,"index.html",locals())
 
-def schedule(request):
+def schedule(request,id):
 
 	begin_latitude = 25.0068
 	begin_longitude = 121.5233
