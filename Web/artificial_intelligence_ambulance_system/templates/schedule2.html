@@ -99,7 +99,7 @@
                     var carRequestUrl = carRoutingRequestUrl.replace('{subscription-key}', atlas.getSubscriptionKey()).replace('{query}', query);
                     callRestService(carRequestUrl, function (r) {
                         addRouteToMap(r.routes[0], 'red');
-                        document.getElementById('output').innerHTML += 'Car Distance: ' + Math.round(r.routes[0].summary.lengthInMeters / 10) / 100 + ' km<br/>';
+                        document.getElementById('output').innerHTML += '車禍現場距離: ' + Math.round(r.routes[0].summary.lengthInMeters / 10) / 100 + ' km<br/>';
                     });
                     var truckRequestUrl = truckRoutingRequestUrl.replace('{subscription-key}', atlas.getSubscriptionKey()).replace('{query}', query);
                     var loadType = getSelectValues('vehicleLoadType');
