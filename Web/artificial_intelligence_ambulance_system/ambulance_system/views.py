@@ -81,11 +81,14 @@ def index(request):
 
 def schedule(request,id):
 
-	begin_latitude = 25.0068
-	begin_longitude = 121.5233
-	finish_latitude = 25.1234
-	finish_longitude = 121.4321
+	car_accident=TrafficConditionLog.objects.get(id=id)
+	
+	begin_latitude = car_accident.ResponsibleUnit.Location.Latitude
+	begin_longitude = car_accident.ResponsibleUnit.Location.Longitude
+	finish_latitude = car_accident.Monitor.Location.Latitude
+	finish_longitude = car_accident.Monitor.Location.Longitude
 
+	#return render(request,"home.html",locals())
 	return render(request,"schedule.html",locals())
 
 def logout(request):
