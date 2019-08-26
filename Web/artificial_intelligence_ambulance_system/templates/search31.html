@@ -30,49 +30,23 @@
             </nav>
     </header>
     <!-- Nav -->
-			<nav id="menu">
-				<ul class="links">
-					{% if user.is_authenticated %}
-						<form method="POST" action='/adminmain/'>
-							<ul class="btn-view-f">
-								<li><strong>管理者帳號: {{user.username}} </strong> </li>
-								<br>
-								<li><button class="btn inputbtn" >管理介面</button></li>
-								<br>
-								{% csrf_token %}
-							</ul>
-						</form>
-						<form method="POST" action="/logout/">
-							<ul class="btn-view-f">
-					  			<li><button class="btn inputbtn">登出系統</button></li>
-				  	  			{% csrf_token %}
-				  			</ul>
-						</form>
-					{% else %}
-						<form action="/sign/" method="POST" id="loginform">
-						<ul class="btn-view">
-        					{% csrf_token %}
-							<li>
-								<label class="small" for="username">管理者帳號:</label>
-								<input name="username" type="text" id="username" required />
-							</li>
-							<li>
-								<label class="small" for="password">管理者密碼:</label>
-								<input name="password" type="password" id="password" required />
-          					</li>
-							<br>
-							<input type="submit" class="inputbtn" value="登入系統" />
-							{% if messages %}
-								<span style="color:red">{{messages}}</span>
-        						<script>
-									alert("{{messages}}");
-        						</script>
-   							{% endif %}
-						</ul>
-						</form>
-					{% endif %}
-				</ul>
-			</nav>
+    <nav id="menu">
+        <ul class="links">
+            <form method="POST">
+                <ul class="btn-view-f">
+                    <li><strong>管理者帳號: {{user.username}} </strong> </li>
+                    <br>
+                    <li><button class="btn inputbtn" ><a href="/admin/">管理介面</a></button></li>                              <br>
+                </ul>
+            </form>
+            <form method="POST" action="/logout/">
+                <ul class="btn-view-f">
+                    <li><button class="btn inputbtn">登出系統</button></li>
+                    {% csrf_token %}
+                </ul>
+            </form>
+        </ul>
+    </nav>
 
     <div class="inner1">
         <table >

@@ -14,10 +14,13 @@ from django.utils.datastructures import MultiValueDictKeyError
 from ambulance_system.models import TrafficConditionLog,Monitor,Location,ResponsibleUnit,TrafficCondition,Ambulance,AmbulanceSchedule
 # Create your views here.
 
+
+
 def home(request):
 	return redirect('/index/')  #開啟管理頁面
 
 def sign(request):
+	global user1
 	messages = ''  #初始時清除訊息
 	if request.method == 'POST':  #如果是以POST方式才處理
 		name = request.POST['username'].strip()  #取得輸入帳號
@@ -32,18 +35,22 @@ def sign(request):
 				messages = '帳號尚未啟用！'
 		else:  #驗證未通過
 			messages = '登入失敗！'
-#		if name=='jame':
-#			if  password == '123':
-#				return redirect('/adminmain/')
-#			else:
-#				messages = 'wrong password'
-#		else:
-#			messages = 'wrong uwer name'
+
 	return render(request,"index.html",locals())
 
+
+
 def adminmain(request):
-	return HttpResponse("welcome")
+	global user1
+	
+	user=user1
+	Unit=ResponsibleUnit.objects.filter(Name=user.username)
+	car_accidents = TrafficConditionLog.objects.filter(ResponsibleUnit__in=Unit)
+	
+
+
 	return render(request,"adminmain.html",locals())
+
 
 def index(request):
 
@@ -51,9 +58,15 @@ def index(request):
 	if request.method == 'POST':
 		location_name=request.POST['location_name']#從前台抓取資料(路段名)
 		location_country=request.POST['location_country']#從前台抓取資料(地段名)
-		locations=Location.objects.filter(Name=location_name)
-		monitors=Monitor.objects.filter(Location__in=locations)
-		car_accidents = TrafficConditionLog.objects.filter(Monitor__in=monitors)
+
+		if location_name == "":
+			locations=Location.objects.filter(CountryName__contains=location_country)
+			monitors=Monitor.objects.filter(Location__in=locations)
+			car_accidents = TrafficConditionLog.objects.filter(Monitor__in=monitors)
+		else:
+			locations=Location.objects.filter(Name__contains=location_name)
+			monitors=Monitor.objects.filter(Location__in=locations)
+			car_accidents = TrafficConditionLog.objects.filter(Monitor__in=monitors)
 		return render(request, "search.html", locals())
 		
 
@@ -76,27 +89,4 @@ def schedule(request):
 def logout(request):
 	django_logout(request)
 	return redirect('/index/')  #開啟管理頁面
-	#return render(request,"index.html",locals())
 
-def search(request):
-
-
-	
-	#	car_accidents = TrafficConditionLog.Monitor.Location.objects.filter(name__contains=location_name)
-	return HttpResponse("welcome")	
-#	return render(request, "search.html", locals())
-
-
-
-
-
-#	if request.method == 'POST':
-#		try:
-#			location_name=request.POST['location_name']
-#		except MultiValueDictKeyError:
-#			location_name=" "
-#		try:
-#			location_country=request.POST['location_country']
-#		except MultiValueDictKeyError:
-#			location_country=" "
-#		return HttpResponse("welcome"+location_name+location_country)

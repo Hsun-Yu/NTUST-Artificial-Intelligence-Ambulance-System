@@ -41,12 +41,14 @@
 			<nav id="menu">
 				<ul class="links">
 					{% if user.is_authenticated %}
-						<form method="POST">
+						<form method="POST" action='/adminmain/'>
 							<ul class="btn-view-f">
 								<li><strong>管理者帳號: {{user.username}} </strong> </li>
 								<br>
-								<li><button class="btn inputbtn" ><a href="/admin/">管理介面</a></button></li>								<br>
-								</ul>
+								<li><button class="btn inputbtn" >管理介面</button></li>
+								<br>
+								{% csrf_token %}
+							</ul>
 						</form>
 						<form method="POST" action="/logout/">
 							<ul class="btn-view-f">
@@ -152,7 +154,7 @@
 								
 								{% for TrafficConditionLog in car_accidents_location %}
 								<tr>
-									<td>{{TrafficConditionLog.Monitor.Location}}    {{TrafficConditionLog.Datetime}}<td/>
+									<td>{{TrafficConditionLog.Monitor.Location.CountryName}} {{TrafficConditionLog.Monitor.Location}}<td/>
 									<br>
 								<tr/>
 								{%endfor %}
@@ -205,7 +207,7 @@
 
 								{% for TrafficConditionLog in car_accidents_location %}
 								<tr>
-									<td>{{TrafficConditionLog.Monitor.Location}}    {{TrafficConditionLog.Datetime}}<td/>
+									<td>{{TrafficConditionLog.Monitor.Location.CountryName}} {{TrafficConditionLog.Monitor.Location}}<td/>
 									<br>
 								<tr/>
 								{%endfor %}
