@@ -60,8 +60,8 @@ def sign(request):
 
 
 def adminmain(request):
-
 	
+
 
 
 	global search
@@ -118,6 +118,7 @@ def adminmain(request):
 	else:  #驗證未通過
 			messages = '登入失敗！'
 			return redirect('/index/')
+
 
 	return render(request,"adminaa.html",locals())
 
@@ -177,13 +178,68 @@ def check(request,id):
 
 
 	car_accident = TrafficConditionLog.objects.get(id=id)
-	if car_accident.Processed == True:
-		car_accident.Processed = False
+	if car_accident.ResponsibleUnit.Name==request.user.username:
+		
+		if car_accident.Processed == True:
+			car_accident.Processed = False
+		else :
+			car_accident.Processed = True
+		car_accident.save()
 	else :
-		car_accident.Processed = True
-
-	car_accident.save()
-
+		return HttpResponse("您沒有權限更改此資料")
+		
 
 
 	return redirect('/adminmain/')
+
+
+def finish(request):
+
+	car_accidents=TrafficConditionLog.objects.filter(Solved=True)
+
+	return render(request, "adminff.html", locals())
+
+
+
+def table(request):
+	if request.method == 'POST':
+		location_name=request.POST['location_name']#從前台抓取資料(路段名)
+		location=Location.objects.get(Name__contains=location_name)
+		monitor=Monitor.objects.get(Location=location)
+
+		time=request.POST['time']
+		
+		size=request.POST['size']
+		condition=TrafficCondition.objects.get(Name__contains=size)
+
+		process=request.POST['process']
+
+		unit_name=request.user.username
+		unit=ResponsibleUnit.objects.get(Name__contains=unit_name)
+
+		log=TrafficConditionLog.objects.create(Monitor=monitor, TrafficCondition=condition, Datetime=time, ResponsibleUnit=unit, Solved=False, Processed=process)
+		log.save()
+	return render(request, "admintable.html", locals())
+
+
+
+
+
+
+
+def editdata(request,id):
+	car_accident=TrafficConditionLog.objects.get(id=id)
+
+	if request.method == 'POST':
+		unit_name=request.POST['unit_name']
+		unit=ResponsibleUnit.objects.get(Name__contains=unit_name)
+		car_accident.ResponsibleUnit=unit
+
+		car_accident.TrafficCondition.Name=request.POST['unit_name']
+		car_accident.Processed=request.POST['process']
+		car_accident.Solved=request.POST['solved']
+		car_accident.save()
+		return redirect('/adminmain/')
+
+
+	return render(request, "editdata.html", locals())

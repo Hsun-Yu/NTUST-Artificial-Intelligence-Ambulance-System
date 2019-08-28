@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from ambulance_system.views import adminmain_home,sign,adminmain,index,schedule,logout,check
+from ambulance_system.views import adminmain_home,sign,adminmain,index,schedule,logout,check,finish,table,editdata
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,5 +29,9 @@ urlpatterns = [
     path('index/logout/',logout),
     path('check/<int:id>',check),
     path('adminmain/home/',adminmain_home),
-    path('adminmain/logout',logout)
+    path('adminmain/logout',logout),
+    path('adminfinish/',finish),
+    path('admintable/',table),
+    
+    path('editdata/<int:id>',editdata),
 ]
