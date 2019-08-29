@@ -154,20 +154,24 @@ def schedule(request,id):
 
 	car_accident=TrafficConditionLog.objects.get(id=id)
 
-	begin_latitude = car_accident.ResponsibleUnit.Location.Latitude
-	begin_longitude = car_accident.ResponsibleUnit.Location.Longitude
-	finish_latitude = car_accident.Monitor.Location.Latitude
-	finish_longitude = car_accident.Monitor.Location.Longitude
+	# begin_latitude = car_accident.ResponsibleUnit.Location.Latitude
+	# begin_longitude = car_accident.ResponsibleUnit.Location.Longitude
+	# finish_latitude = car_accident.Monitor.Location.Latitude
+	# finish_longitude = car_accident.Monitor.Location.Longitude
 
 #	begin_latitude = 25.0068
 #	begin_longitude = 121.5233
 #	finish_latitude = 25.1234
 #	finish_longitude = 121.4321
-	start = str(begin_latitude)+','+str(begin_longitude)
-	end = str(finish_latitude)+','+str(finish_longitude)
+	# start = str(begin_latitude)+','+str(begin_longitude)
+	# end = str(finish_latitude)+','+str(finish_longitude)
 #	start='25,121'
 #	end='26.3,121'
-	return render(request,"schedule2.html",locals())
+
+	context = {
+		'caraccident':car_accident,
+    }
+	return render(request,'schedule.html', context)
 
 def logout(request):
 	django_logout(request)
