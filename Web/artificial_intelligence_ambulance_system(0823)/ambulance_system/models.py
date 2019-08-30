@@ -43,7 +43,7 @@ class TrafficConditionLog(models.Model):
 	Processed = models.BooleanField(default=False)
 
 	def __str__(self):
-		return self.TrafficCondition.Name
+		return self.Monitor.Location.Name
 
 
 class Ambulance(models.Model):

@@ -197,7 +197,7 @@
                                             <th class="border-top-0">處理單位</th>
                                             <th class="border-top-0">是否正在處理</th>
                                             <th class="border-top-0">路線規劃</th>
-                                            <th class="border-top-0">編輯</th>
+                                            <th class="border-top-0">編輯資料</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -214,7 +214,7 @@
                                             {% else %}
                                                 <td><img src="{%static 'webpage/images/x.png' %}" width="30px" height="30px" onclick="window.location='/check/'+{{ TrafficConditionLog.id}}"/></td>
                                             {% endif %}
-                                            <td  colspan="1" ><input name="button1" type="button" value="路線" onclick="window.location='/schedule/'+{{ TrafficConditionLog.id}}"/></td>
+                                            <td  colspan="1" ><input name="button1" type="button" value="救援路線" onclick="window.location='/schedule/'+{{ TrafficConditionLog.id}}"/></td>
                                             <td  colspan="1" ><input name="button1" type="button" value="編輯" onclick="window.location='/editdata/'+{{ TrafficConditionLog.id}}"/></td>
                                         
                                         </tr>
@@ -235,7 +235,7 @@
                                             <th class="border-top-0">處理單位</th>
                                             <th class="border-top-0">是否正在處理</th>
                                             <th class="border-top-0">路線規劃</th>
-                                            <th class="border-top-0">編輯</th>
+                                            <th class="border-top-0">編輯資料</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -251,7 +251,7 @@
                                             {% else %}
                                                 <td><img src="{%static 'webpage/images/x.png' %}" width="30px" height="30px" onclick="window.location='/check/'+{{ TrafficConditionLog.id}}"/></td>
                                             {% endif %}
-                                            <td  colspan="1" ><input name="button1" type="button" value="路線" onclick="window.location='/schedule/'+{{ TrafficConditionLog.id}}"/></td>
+                                            <td  colspan="1" ><input name="button1" type="button" value="救援路線" onclick="window.location='/schedule/'+{{ TrafficConditionLog.id}}"/></td>
                                             <td  colspan="1" ><input name="button1" type="button" value="編輯" onclick=""/></td>
                                         </tr>
                                         {% endif %}
