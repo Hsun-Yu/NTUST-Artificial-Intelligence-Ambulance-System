@@ -1,0 +1,243 @@
+
+<!DOCTYPE HTML>
+<!--
+	Industrious by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Ambulance System</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+
+        <!--fontawesome-->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
+        <!--bs4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <!--字型-->
+        <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC:500&display=swap" rel="stylesheet">
+        <!--本地css-->
+		{% load static %}
+		<link rel="stylesheet" media="all" type="text/css" href="{% static 'webpage/css/main.css' %}">
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a class="logo" href="/index">Ambulance System</a>
+				<nav>
+					{% if user.is_authenticated %}
+						<a href="#menu">選單</a>
+					{% else %}
+						<a href="#menu">登入系統</a>
+					{% endif %}
+				</nav>
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					{% if user.is_authenticated %}
+						<form method="POST" action='/adminmain/home/'>
+							<ul class="btn-view-f">
+								<li><strong>管理者帳號: {{user.username}} </strong> </li>
+								<br>
+								<li><button class="btn inputbtn" >管理介面</button></li>
+								<br>
+								{% csrf_token %}
+							</ul>
+						</form>
+						<form method="POST" action="/logout/">
+							<ul class="btn-view-f">
+					  			<li><button class="btn inputbtn">登出系統</button></li>
+				  	  			{% csrf_token %}
+				  			</ul>
+						</form>
+					{% else %}
+						<form action="/sign/" method="POST" id="loginform">
+						<ul class="btn-view">
+        					{% csrf_token %}
+							<li>
+								<label class="small" for="username">管理者帳號:</label>
+								<input name="username" type="text" id="username" required />
+							</li>
+							<li>
+								<label class="small" for="password">管理者密碼:</label>
+								<input name="password" type="password" id="password" required />
+          					</li>
+							<br>
+							<input type="submit" class="inputbtn" value="登入系統" />
+							{% if messages %}
+								<span style="color:red">{{messages}}</span>
+        						<script>
+									alert("{{messages}}");
+        						</script>
+   							{% endif %}
+						</ul>
+						</form>
+					{% endif %}
+				</ul>
+			</nav>
+
+
+		<!-- Banner -->
+			<div id="banner">
+				<div class="inner">
+					<h1>即時車禍查詢</h1>
+				</div>
+				<video autoplay loop muted playsinline src="{%static 'webpage/images/banner.mp4' %}"></video>
+			</div>
+			<div class="inner">
+  				<form method="post" id="location">
+					{% csrf_token %}
+					<div class="cont">
+    					<p>請輸入區域</p>
+    					<input type="text" name="location_country" />
+    					<br>
+					</div>
+					<div class="cont">
+   						<p>請輸入路段</p>
+    					<input type="text" name="location_name" />
+
+					</div>
+					<br>
+					<button type="submit">確定</button>
+				</form>
+			</div>
+		<!-- Highlights -->
+			<section class="wrapper">
+				{% if user.is_authenticated %}
+				<div class="inner">
+					<div class="highlights">
+						<section>
+							<div class="content">
+								<header>
+									<a href="#" ><i class="far icon fa-calendar-check-o"></i></a>
+									<h3>車禍(依時間排序):</h3>
+								</header>
+								
+								{% for TrafficConditionLog in car_accidents_time %}
+								<tr>
+									<td>{{TrafficConditionLog.Location.Name}}  {{TrafficConditionLog.Datetime}}<td/>
+									<br>
+								<tr/>
+								{%endfor %}
+								
+								
+							</div>
+
+						</section>
+						<section>
+							<div class="content">
+								<header>
+									<a href="#" ><i class=" icon fas fa-car"></i></a>
+									<h3>車禍(依大小排序):</h3>
+								</header>
+								
+								{% for TrafficConditionLog in car_accidents_size %}
+								<tr>
+									<td>{{TrafficConditionLog.Location.Name}}  {{TrafficConditionLog.TrafficCondition.Name}}<td/>
+									<br>
+								<tr/>
+								{%endfor %}
+							</div>
+						</section>
+						<section>
+							<div class="content">
+								<header>
+									<a href="#" ><i class="icon far fa-compass"></i></a>
+									<h3>車禍(依地點排序):</h3>
+								</header>
+								
+								{% for TrafficConditionLog in car_accidents_location %}
+								<tr>
+									<td>{{TrafficConditionLog.Location.CountryName}} {{TrafficConditionLog.Location.Name}}<td/>
+									<br>
+								<tr/>
+								{%endfor %}
+							</div>
+						</section>
+					</div>
+				</div>
+				{% else %}
+				<div class="inner">
+					<div class="highlights">
+						<section>
+							<div class="content">
+								<header>
+									<a href="#" ><i class="far icon fa-calendar-check-o"></i></a>
+									<h3>車禍(依時間排序):</h3>
+								</header>
+
+								{% for TrafficConditionLog in car_accidents_time %}
+								<tr>
+									<td>{{TrafficConditionLog.Location}}  {{TrafficConditionLog.Datetime}}<td/>
+									<br>
+								<tr/>
+								{%endfor %}
+
+
+							</div>
+
+						</section>
+						<section>
+							<div class="content">
+								<header>
+									<a href="#" ><i class=" icon fas fa-car"></i></a>
+									<h3>車禍(依大小排序):</h3>
+								</header>
+
+								{% for TrafficConditionLog in car_accidents_size %}
+								<tr>
+									<td>{{TrafficConditionLog.Location}}  {{TrafficConditionLog.TrafficCondition.Name}}<td/>
+									<br>
+								<tr/>
+								{%endfor %}
+							</div>
+						</section>
+						<section>
+							<div class="content">
+								<header>
+									<a href="#" ><i class="icon far fa-compass"></i></a>
+									<h3>車禍(依地點排序):</h3>
+								</header>
+
+								{% for TrafficConditionLog in car_accidents_location %}
+								<tr>
+									<td>{{TrafficConditionLog.Location.CountryName}} {{TrafficConditionLog.Location}}<td/>
+									<br>
+								<tr/>
+								{%endfor %}
+							</div>
+						</section>
+					</div>
+				</div>
+				{% endif %}
+			</section>
+
+
+
+		<!-- Testimonials -->
+
+
+
+
+		<!-- Scripts -->
+
+		{% load staticfiles %}
+			<script src="{% static 'webpage/js/jquery.min.js' %}"></script>
+		{% load staticfiles %}
+			<script src="{% static 'webpage/js/browser.min.js' %}"></script>
+		{% load staticfiles %}
+			<script src="{% static 'webpage/js/breakpoints.min.js' %}"></script>
+		{% load staticfiles %}
+			<script src="{% static 'webpage/js/util.js' %}"></script>
+		{% load staticfiles %}
+			<script src="{% static 'webpage/js/main.js' %}"></script>
+
+
+	</body>
+</html>
