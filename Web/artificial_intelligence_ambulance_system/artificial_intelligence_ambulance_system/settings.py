@@ -84,6 +84,18 @@ DATABASES = {
 
 # DATABASES = {
 #     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'aias',
+#         'USER': 'aiasteam@aias',
+#         'PASSWORD': '20190802',
+#         'HOST': 'aias.mysql.database.azure.com',
+#         'PORT': '3306',
+        
+#     }
+# }
+
+# DATABASES = {
+#     'default': {
 #         'ENGINE': 'sql_server.pyodbc',
 #         'NAME': 'AIASDB',
 #         'USER': 'hsunyu',
